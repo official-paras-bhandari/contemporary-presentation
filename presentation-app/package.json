@@ -1,0 +1,27 @@
+{
+  "name": "presentation-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.0",
+    "@vitejs/plugin-react": "^6.0.1",
+    "canvas-confetti": "^1.9.4",
+    "framer-motion": "^12.38.0",
+    "gsap": "^3.15.0",
+    "lucide-react": "^1.8.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "three": "^0.183.2",
+    "vite": "^8.0.8"
+  }
+}

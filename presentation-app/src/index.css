@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --v: #a78bfa;
+  --b: #60a5fa;
+  --g: #34d399;
+  --r: #f87171;
+  --y: #fbbf24;
+  --bg: #020617;
+  --s1: rgba(167,139,250,0.15);
+  --s2: rgba(96,165,250,0.15);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { background: var(--bg); color: #fff; font-family: 'Outfit', sans-serif; overflow: hidden; -webkit-font-smoothing: antialiased; }
+
+.wrap {
+  position: fixed; inset: 0;
+  display: flex; flex-direction: column;
+}
+
+/* ─── Background canvas layer (keep untouched) ─── */
+.bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+canvas { width: 100% !important; height: 100% !important; }
+
+/* ─── UI layer ─── */
+.ui { position: fixed; inset: 0; z-index: 10; pointer-events: none; }
+.ui * { pointer-events: auto; }
+
+/* ─── Progress bar ─── */
+.progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 50;
+  background: rgba(255,255,255,0.05);
+}
+.progress-fill {
+  height: 100%; background: linear-gradient(90deg, var(--v), var(--b));
+  box-shadow: 0 0 12px var(--v), 0 0 30px var(--b);
+  transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ─── Side dot nav ─── */
+.dot-nav {
+  position: fixed; right: 2.5rem; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 0.75rem; z-index: 50;
+}
+.dot {
+  width: 6px; border-radius: 3px; background: rgba(255,255,255,0.15);
+  height: 6px; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); cursor: pointer;
+}
+.dot.on { background: var(--v); height: 28px; box-shadow: 0 0 12px var(--v); }
+
+/* ─── Arrows ─── */
+.arrow-nav {
+  position: fixed; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 1.5rem; z-index: 50;
+}
+.arr {
+  display: flex; align-items: center; justify-content: center;
+  width: 3.25rem; height: 3.25rem; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.04); backdrop-filter: blur(12px);
+  cursor: pointer; transition: all 0.3s ease; color: #fff;
+}
+.arr:hover { background: var(--v); border-color: var(--v); transform: scale(1.12); box-shadow: 0 0 24px var(--v); }
+.arr:disabled { opacity: 0.2; pointer-events: none; }
+.slide-counter {
+  font-family: 'Space Mono', monospace; font-size: 0.75rem;
+  color: rgba(255,255,255,0.3); padding: 0 1rem; user-select: none;
+}
+
+/* ─── Slide viewport ─── */
+.slides-viewport {
+  position: fixed; inset: 0; z-index: 5; overflow: hidden;
+}
+
+/* ─── Custom cursor ─── */
+.cur {
+  width: 10px; height: 10px; background: #fff; border-radius: 50%;
+  position: fixed; pointer-events: none; z-index: 9999;
+  mix-blend-mode: difference; transform: translate(-50%,-50%);
+  transition: transform 0.08s linear;
+}
+.cur-ring {
+  width: 36px; height: 36px; border: 1px solid rgba(167,139,250,0.5);
+  border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%); transition: left 0.18s ease, top 0.18s ease, transform 0.3s ease;
+}
+
+/* ─── SLIDE base ─── */
+.slide {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 4rem 5rem; opacity: 0; pointer-events: none;
+}
+.slide.active { opacity: 1; pointer-events: auto; }
+
+/* ─── SLIDE INNER ─── */
+.panel {
+  width: 100%; max-width: 1280px;
+  background: rgba(2,6,23,0.65);
+  backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 36px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 40px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+  position: relative;
+}
+
+/* ─── Typography ─── */
+.big { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.02em; line-height: 0.88; font-size: clamp(4rem,8vw,9rem); }
+.label {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 0.4rem 1rem; border-radius: 100px; display: inline-flex; align-items: center; gap: 0.5rem;
+}
+.body-text { font-size: clamp(1rem,1.3vw,1.3rem); color: rgba(255,255,255,0.6); line-height: 1.7; }
+.em { color: #fff; font-weight: 600; }
+.mono { font-family: 'Space Mono', monospace; font-size: clamp(2rem,4vw,5rem); font-weight: 700; }
+
+/* ─── Glassmorphism pill ─── */
+.pill {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px; padding: 1.5rem 2rem;
+  display: flex; align-items: flex-start; gap: 1.5rem;
+  transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.pill:hover { background: rgba(167,139,250,0.08); border-color: rgba(167,139,250,0.3); transform: translateX(8px); }
+.pill-icon {
+  width: 3rem; height: 3rem; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0;
+}
+
+/* ─── Animated gradient backgrounds ─── */
+@keyframes bg1 { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+.grad-v { background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(59,130,246,0.1)); }
+.grad-g { background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(59,130,246,0.1)); }
+.grad-r { background: linear-gradient(135deg, rgba(248,113,113,0.2), rgba(251,191,36,0.1)); }
+.grad-y { background: linear-gradient(135deg, rgba(251,191,36,0.2), rgba(16,185,129,0.1)); }
+
+/* ─── Glow line divider ─── */
+.glow-line { height: 1px; background: linear-gradient(90deg, transparent, var(--v), transparent); margin: 2rem 0; }
+
+/* ─── Animated number ─── */
+.stat-block { text-align: center; }
+.stat-num { font-family: 'Bebas Neue', monospace; font-size: clamp(3rem,6vw,7rem); line-height: 1; }
+.stat-label { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.5; }
+
+/* ─── Neural network SVG ─── */
+.nn-svg { width: 100%; height: 100%; }
+.nn-node { fill: none; stroke-width: 2; }
+.nn-edge { stroke-width: 1; opacity: 0.4; }
+@keyframes pulse-node { 0%,100%{r:6;opacity:0.6} 50%{r:9;opacity:1} }
+@keyframes flow {
+  0% { stroke-dashoffset: 200; opacity: 0; }
+  50% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+.flow-line { stroke-dasharray: 8 4; animation: flow 2s linear infinite; }
+
+/* ─── Slide 1 – Hero ─── */
+.s1-inner { display: grid; grid-template-columns: 1fr 1fr; min-height: 80vh; }
+.s1-left { padding: 5rem; display: flex; flex-direction: column; justify-content: center; gap: 2rem; border-right: 1px solid rgba(255,255,255,0.06); }
+.s1-right { padding: 3rem; display: flex; align-items: center; justify-content: center; }
+
+/* ─── Slide layout ─── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0; min-height: 78vh; }
+.col-pad { padding: 4rem 5rem; display: flex; flex-direction: column; justify-content: center; gap: 2rem; }
+.col-accent { padding: 4rem; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 3rem; }
+.border-right { border-right: 1px solid rgba(255,255,255,0.06); }
+.full-pad { padding: 5rem; display: flex; flex-direction: column; justify-content: center; gap: 2.5rem; }
+.three-col-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(255,255,255,0.06); }
+.stat-col { background: rgba(2,6,23,0.65); padding: 3.5rem 2rem; text-align: center; }
+
+/* ─── Animated badge dot ─── */
+@keyframes ping { 0%{transform:scale(1);opacity:1} 100%{transform:scale(2.5);opacity:0} }
+.badge-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; position: relative; }
+.badge-dot::after { content:''; position:absolute; inset:0; border-radius:50%; animation: ping 1.5s ease-out infinite; }
+
+/* ─── Scroll reveal stub – animating via JS ─── */
+.reveal { opacity: 0; transform: translateY(32px); }
+.reveal.in { animation: revealUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards; }
+@keyframes revealUp { to { opacity:1; transform:translateY(0); } }
+
+/* ─── Glitch text ─── */
+@keyframes glitch1 { 0%,100%{clip-path:inset(55% 0 12% 0)} }
+@keyframes glitch2 { 0%,100%{clip-path:inset(5% 0 70% 0)} }
+
+.lc-tag {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+  opacity: 0.4; display: flex; align-items: center; gap: 0.5rem;
+}
+.lc-tag::before { content:''; display:block; width:2rem; height:1px; background:currentColor; }
+
+/* ─── Floating ring animation ─── */
+@keyframes ring-spin { to { transform: rotate(360deg); } }
+@keyframes ring-counter { to { transform: rotate(-360deg); } }
+.ring { position: absolute; border-radius: 50%; }
+.ring1 { animation: ring-spin 12s linear infinite; }
+.ring2 { animation: ring-counter 18s linear infinite; }
+
+/* ─── Color accents ─── */
+.text-v { color: var(--v); }
+.text-b { color: var(--b); }
+.text-g { color: var(--g); }
+.text-r { color: var(--r); }
+.text-y { color: var(--y); }
+
+.bg-v { background: var(--v); }
+.bg-b { background: var(--b); }
+.bg-g { background: var(--g); }
+.bg-r { background: var(--r); }
+
+/* ─── Chart bars ─── */
+.chart-wrap { display: flex; align-items: flex-end; gap: 0.5rem; height: 160px; padding-bottom: 0.5rem; }
+.bar { border-radius: 6px 6px 0 0; flex: 1; transition: height 1.2s cubic-bezier(0.4,0,0.2,1); position: relative; }
+.bar-label { position: absolute; bottom: -1.5rem; left: 50%; transform: translateX(-50%); font-size: 0.6rem; white-space: nowrap; opacity: 0.5; }
