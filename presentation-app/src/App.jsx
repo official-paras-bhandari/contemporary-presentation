@@ -1,9 +1,16 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Points, PointMaterial } from '@react-three/drei'
 import * as random from 'maath/random/dist/maath-random.esm'
 import confetti from 'canvas-confetti'
+import {
+  BarChart2, Brain, Zap, Search, Target, Activity,
+  Factory, Package, Building2, Stethoscope, Wind, TrendingUp,
+  AlertTriangle, Scale, BookOpen, Lock, Biohazard, ShieldCheck,
+  Rocket, Cloud, Leaf, Bot, ShoppingCart, Clapperboard,
+  GraduationCap, Globe, MessageSquare, Cpu, Network
+} from 'lucide-react'
 
 /* ─────────────────────── 3-D STAR BACKGROUND ─────────────────────── */
 function Stars() {
@@ -151,9 +158,8 @@ function Rings({ color }) {
       ))}
       <div style={{
         position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: '5rem',
       }}>
-        {['🧠', '⚡', '🔬', '🌐'][0]}
+        <Network size={64} strokeWidth={1} style={{ opacity: 0.7 }} />
       </div>
     </div>
   )
@@ -239,16 +245,16 @@ function SlideIntro() {
           </motion.p>
           <div style={{ display: 'grid', gap: '1rem', marginTop: '0.5rem' }}>
             {[
-              { icon: '📊', label: 'Supervised', desc: 'Learns from labeled training data', color: '#a78bfa' },
-              { icon: '🔍', label: 'Unsupervised', desc: 'Discovers hidden structure', color: '#60a5fa' },
-              { icon: '🎮', label: 'Reinforcement', desc: 'Optimises via reward feedback', color: '#34d399' },
+              { icon: <BarChart2 size={22} />, label: 'Supervised', desc: 'Learns from labeled training data', color: '#a78bfa' },
+              { icon: <Search size={22} />, label: 'Unsupervised', desc: 'Discovers hidden structure', color: '#60a5fa' },
+              { icon: <Target size={22} />, label: 'Reinforcement', desc: 'Optimises via reward feedback', color: '#34d399' },
             ].map((item, i) => (
               <motion.div key={item.label}
                 initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5 + i * 0.12 }}
                 className="pill">
-                <div className="pill-icon" style={{ background: `${item.color}20` }}>
-                  <span>{item.icon}</span>
+                <div className="pill-icon" style={{ background: `${item.color}20`, color: item.color }}>
+                  {item.icon}
                 </div>
                 <div>
                   <div style={{ fontWeight: 700, fontSize: '1rem', color: item.color }}>{item.label}</div>
@@ -336,23 +342,26 @@ function SlideHealth() {
           </motion.p>
           <div style={{ display: 'grid', gap: '0.75rem', marginTop: '1rem' }}>
             {[
-              { icon: '🩺', text: 'Esteva et al. (2017): Dermatologist-level skin cancer classification' },
-              { icon: '🫁', text: 'CheXNet: Radiologist-level pneumonia detection (Rajpurkar 2017)' },
-              { icon: '📈', text: 'Predictive models for sepsis risk, patient readmission' },
+              { icon: <Stethoscope size={20} />, text: 'Esteva et al. (2017): Dermatologist-level skin cancer classification' },
+              { icon: <Wind size={20} />, text: 'CheXNet: Radiologist-level pneumonia detection (Rajpurkar 2017)' },
+              { icon: <TrendingUp size={20} />, text: 'Predictive models for sepsis risk, patient readmission' },
             ].map((item, i) => (
               <motion.div key={i}
                 initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5 + i * 0.12 }}
-                style={{ display: 'flex', gap: '1rem', padding: '1rem 1.25rem', borderRadius: 16, background: 'rgba(52,211,153,0.06)', border: '1px solid rgba(52,211,153,0.15)' }}>
-                <span>{item.icon}</span>
+                style={{ display: 'flex', gap: '1rem', alignItems: 'center', padding: '1rem 1.25rem', borderRadius: 16, background: 'rgba(52,211,153,0.06)', border: '1px solid rgba(52,211,153,0.15)' }}>
+                <span style={{ color: '#34d399', flexShrink: 0 }}>{item.icon}</span>
                 <span style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.65)' }}>{item.text}</span>
               </motion.div>
             ))}
           </div>
         </div>
         <div className="col-accent" style={{ background: 'rgba(52,211,153,0.04)' }}>
-          <motion.div initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, type: 'spring', stiffness: 80 }}>
-            <div style={{ fontSize: '8rem', textAlign: 'center', filter: 'drop-shadow(0 0 30px #34d399)' }}>🧬</div>
+          <motion.div initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, type: 'spring', stiffness: 80 }}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ padding: '2.5rem', borderRadius: '50%', background: 'rgba(52,211,153,0.1)', border: '1px solid rgba(52,211,153,0.25)', boxShadow: '0 0 60px rgba(52,211,153,0.2)' }}>
+              <Brain size={80} style={{ color: '#34d399' }} strokeWidth={1} />
+            </div>
           </motion.div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
             {[
@@ -394,15 +403,15 @@ function SlideAuto() {
           </motion.p>
           <div style={{ display: 'grid', gap: '0.75rem', marginTop: '1rem' }}>
             {[
-              { icon: '🏭', text: 'Predictive maintenance in manufacturing' },
-              { icon: '📦', text: 'Demand forecasting in logistics & retail' },
-              { icon: '🏦', text: 'Intelligent document processing in finance' },
+              { icon: <Factory size={20} />, text: 'Predictive maintenance in manufacturing' },
+              { icon: <Package size={20} />, text: 'Demand forecasting in logistics & retail' },
+              { icon: <Building2 size={20} />, text: 'Intelligent document processing in finance' },
             ].map((item, i) => (
               <motion.div key={i}
                 initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5 + i * 0.12 }}
-                style={{ display: 'flex', gap: '1rem', padding: '1rem 1.25rem', borderRadius: 16, background: 'rgba(251,191,36,0.06)', border: '1px solid rgba(251,191,36,0.15)' }}>
-                <span>{item.icon}</span>
+                style={{ display: 'flex', gap: '1rem', alignItems: 'center', padding: '1rem 1.25rem', borderRadius: 16, background: 'rgba(251,191,36,0.06)', border: '1px solid rgba(251,191,36,0.15)' }}>
+                <span style={{ color: '#fbbf24', flexShrink: 0 }}>{item.icon}</span>
                 <span style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.65)' }}>{item.text}</span>
               </motion.div>
             ))}
@@ -446,15 +455,15 @@ function SlidePersonal() {
         </motion.p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '1.5rem', width: '100%', marginTop: '1rem' }}>
           {[
-            { icon: '🛒', brand: 'Amazon', stat: '35%', desc: 'Revenue from ML recs' },
-            { icon: '🎬', brand: 'Netflix', stat: '$1B', desc: 'Annual value via personalisation' },
-            { icon: '🎓', brand: 'EdTech', stat: '40%', desc: 'Learning gap close rate' },
+            { icon: <ShoppingCart size={32} />, brand: 'Amazon', stat: '35%', desc: 'Revenue from ML recs', color: '#60a5fa' },
+            { icon: <Clapperboard size={32} />, brand: 'Netflix', stat: '$1B', desc: 'Annual value via personalisation', color: '#f87171' },
+            { icon: <GraduationCap size={32} />, brand: 'EdTech', stat: '40%', desc: 'Learning gap close rate', color: '#34d399' },
           ].map((c, i) => (
             <motion.div key={c.brand}
               initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 + i * 0.13 }}
               style={{ padding: '2rem', borderRadius: 24, background: 'rgba(96,165,250,0.07)', border: '1px solid rgba(96,165,250,0.15)', textAlign: 'center' }}>
-              <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>{c.icon}</div>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem', color: c.color }}>{c.icon}</div>
               <div style={{ fontFamily: 'Bebas Neue', fontSize: '3rem', color: '#60a5fa', lineHeight: 1 }}>{c.stat}</div>
               <div style={{ fontSize: '0.8rem', fontWeight: 700, marginTop: 4 }}>{c.brand}</div>
               <div style={{ fontSize: '0.7rem', opacity: 0.45, marginTop: 2 }}>{c.desc}</div>
@@ -481,23 +490,26 @@ function SlideBias() {
           </motion.p>
           <div style={{ display: 'grid', gap: '0.75rem', marginTop: '1rem' }}>
             {[
-              { icon: '⚠️', text: 'Gender Shades (Buolamwini & Gebru, 2018): 34% error ↑ for darker-skinned women' },
-              { icon: '⚖️', text: 'Criminal recidivism, automated hiring, credit underwriting impacts' },
-              { icon: '📚', text: 'Fairness is normative — requires interdisciplinary engagement' },
+              { icon: <AlertTriangle size={20} />, text: 'Gender Shades (Buolamwini & Gebru, 2018): 34% error ↑ for darker-skinned women' },
+              { icon: <Scale size={20} />, text: 'Criminal recidivism, automated hiring, credit underwriting impacts' },
+              { icon: <BookOpen size={20} />, text: 'Fairness is normative — requires interdisciplinary engagement' },
             ].map((item, i) => (
               <motion.div key={i}
                 initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5 + i * 0.12 }}
-                style={{ display: 'flex', gap: '1rem', padding: '1rem 1.25rem', borderRadius: 16, background: 'rgba(248,113,113,0.06)', border: '1px solid rgba(248,113,113,0.15)' }}>
-                <span>{item.icon}</span>
+                style={{ display: 'flex', gap: '1rem', alignItems: 'center', padding: '1rem 1.25rem', borderRadius: 16, background: 'rgba(248,113,113,0.06)', border: '1px solid rgba(248,113,113,0.15)' }}>
+                <span style={{ color: '#f87171', flexShrink: 0 }}>{item.icon}</span>
                 <span style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.65)' }}>{item.text}</span>
               </motion.div>
             ))}
           </div>
         </div>
         <div className="col-accent" style={{ background: 'rgba(248,113,113,0.04)' }}>
-          <motion.div initial={{ opacity: 0, rotate: -10, scale: 0.7 }} animate={{ opacity: 1, rotate: 0, scale: 1 }} transition={{ delay: 0.3, type: 'spring' }}>
-            <div style={{ fontSize: '7rem', textAlign: 'center', filter: 'drop-shadow(0 0 30px #f87171)' }}>⚠️</div>
+          <motion.div initial={{ opacity: 0, rotate: -10, scale: 0.7 }} animate={{ opacity: 1, rotate: 0, scale: 1 }} transition={{ delay: 0.3, type: 'spring' }}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ padding: '2.5rem', borderRadius: '50%', background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.25)', boxShadow: '0 0 60px rgba(248,113,113,0.2)' }}>
+              <AlertTriangle size={80} style={{ color: '#f87171' }} strokeWidth={1} />
+            </div>
           </motion.div>
           <div style={{ display: 'grid', gap: '1rem', width: '100%' }}>
             {[
@@ -538,15 +550,15 @@ function SlidePrivacy() {
         </motion.h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '1.25rem' }}>
           {[
-            { icon: '🔐', title: 'GDPR & Aus. Privacy Act', desc: 'Data minimisation, consent, purpose limitation obligations apply to all ML training data.', color: '#fbbf24' },
-            { icon: '💉', title: 'Data Poisoning', desc: 'Adversarial attacks, model inversion, membership inference represent novel threat surfaces for deployed ML.', color: '#f87171' },
-            { icon: '🛡️', title: 'Mitigations', desc: 'Differential privacy, federated learning, secure multi-party computation — each with utility trade-offs.', color: '#34d399' },
+            { icon: <Lock size={36} />, title: 'GDPR & Aus. Privacy Act', desc: 'Data minimisation, consent, purpose limitation obligations apply to all ML training data.', color: '#fbbf24' },
+            { icon: <Biohazard size={36} />, title: 'Data Poisoning', desc: 'Adversarial attacks, model inversion, membership inference represent novel threat surfaces for deployed ML.', color: '#f87171' },
+            { icon: <ShieldCheck size={36} />, title: 'Mitigations', desc: 'Differential privacy, federated learning, secure multi-party computation — each with utility trade-offs.', color: '#34d399' },
           ].map((c, i) => (
             <motion.div key={c.title}
               initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 + i * 0.12 }}
               style={{ padding: '2rem', borderRadius: 24, background: `rgba(255,255,255,0.03)`, border: `1px solid ${c.color}25` }}>
-              <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{c.icon}</div>
+              <div style={{ marginBottom: '1rem', color: c.color }}>{c.icon}</div>
               <div style={{ fontWeight: 700, fontSize: '1rem', color: c.color, marginBottom: '0.5rem' }}>{c.title}</div>
               <div style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6 }}>{c.desc}</div>
             </motion.div>
@@ -582,19 +594,22 @@ function SlideReg() {
         </div>
         <div className="col-accent" style={{ gap: '1.5rem' }}>
           {[
-            { region: '🇪🇺 EU', status: 'AI Act 2024', color: '#a78bfa', desc: 'Comprehensive risk-based' },
-            { region: '🇦🇺 Australia', status: 'Voluntary Guidelines', color: '#fbbf24', desc: 'Sectoral + voluntary' },
-            { region: '🇺🇸 USA', status: 'EO 14110', color: '#60a5fa', desc: 'Executive order framework' },
+            { icon: <Globe size={20} />, region: 'European Union', status: 'AI Act 2024', color: '#a78bfa', desc: 'Comprehensive risk-based' },
+            { icon: <Globe size={20} />, region: 'Australia', status: 'Voluntary Guidelines', color: '#fbbf24', desc: 'Sectoral + voluntary' },
+            { icon: <Globe size={20} />, region: 'United States', status: 'EO 14110', color: '#60a5fa', desc: 'Executive order framework' },
           ].map((r, i) => (
             <motion.div key={r.region}
               initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 + i * 0.12 }}
-              style={{ width: '100%', padding: '1.5rem 2rem', borderRadius: 20, background: 'rgba(255,255,255,0.03)', border: `1px solid ${r.color}30`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div>
-                <div style={{ fontWeight: 700, fontSize: '1.1rem' }}>{r.region}</div>
-                <div style={{ fontSize: '0.75rem', opacity: 0.45, marginTop: 2 }}>{r.desc}</div>
+              style={{ width: '100%', padding: '1.5rem 2rem', borderRadius: 20, background: 'rgba(255,255,255,0.03)', border: `1px solid ${r.color}30`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <div style={{ color: r.color }}>{r.icon}</div>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: '1.1rem' }}>{r.region}</div>
+                  <div style={{ fontSize: '0.75rem', opacity: 0.45, marginTop: 2 }}>{r.desc}</div>
+                </div>
               </div>
-              <span style={{ padding: '0.35rem 1rem', borderRadius: 100, background: `${r.color}20`, color: r.color, fontSize: '0.75rem', fontWeight: 700 }}>{r.status}</span>
+              <span style={{ padding: '0.35rem 1rem', borderRadius: 100, background: `${r.color}20`, color: r.color, fontSize: '0.75rem', fontWeight: 700, flexShrink: 0 }}>{r.status}</span>
             </motion.div>
           ))}
         </div>
@@ -614,16 +629,16 @@ function SlideFuture() {
         </motion.h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '1.25rem' }}>
           {[
-            { icon: '🚀', title: 'Scaling', desc: 'Foundation models continue improving predictably with compute and data' },
-            { icon: '☁️', title: 'Democratisation', desc: 'AutoML and cloud APIs lower barrier for SMEs and public sector' },
-            { icon: '🌿', title: 'Sustainability', desc: 'Training carbon footprint rivals transatlantic aviation — regulatory scrutiny incoming' },
-            { icon: '🤖', title: 'Multimodal', desc: 'Integration of vision, language, audio into unified reasoning systems' },
+            { icon: <Rocket size={36} />, title: 'Scaling', desc: 'Foundation models continue improving predictably with compute and data', color: '#34d399' },
+            { icon: <Cloud size={36} />, title: 'Democratisation', desc: 'AutoML and cloud APIs lower barrier for SMEs and public sector', color: '#60a5fa' },
+            { icon: <Leaf size={36} />, title: 'Sustainability', desc: 'Training carbon footprint rivals transatlantic aviation — regulatory scrutiny incoming', color: '#34d399' },
+            { icon: <Bot size={36} />, title: 'Multimodal', desc: 'Integration of vision, language, audio into unified reasoning systems', color: '#a78bfa' },
           ].map((c, i) => (
             <motion.div key={c.title}
               initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4 + i * 0.12, type: 'spring', stiffness: 100 }}
               style={{ padding: '2rem 1.5rem', borderRadius: 24, background: 'rgba(52,211,153,0.06)', border: '1px solid rgba(52,211,153,0.15)', textAlign: 'center' }}>
-              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{c.icon}</div>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem', color: c.color }}>{c.icon}</div>
               <div style={{ fontWeight: 700, color: '#34d399', marginBottom: '0.5rem' }}>{c.title}</div>
               <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6 }}>{c.desc}</div>
             </motion.div>
@@ -710,9 +725,10 @@ function SlideOutro() {
             <div key={t} style={{ padding: '1rem', borderRadius: 16, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', fontSize: '0.85rem', fontWeight: 600, opacity: 0.7 }}>{t}</div>
           ))}
         </motion.div>
-        <motion.div style={{ padding: '1.5rem 2.5rem', borderRadius: 24, background: 'rgba(167,139,250,0.1)', border: '1px solid rgba(167,139,250,0.25)', fontSize: '1.1rem', fontWeight: 500 }}
+        <motion.div style={{ padding: '1.5rem 2.5rem', borderRadius: 24, background: 'rgba(167,139,250,0.1)', border: '1px solid rgba(167,139,250,0.25)', fontSize: '1.1rem', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '0.75rem', justifyContent: 'center' }}
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}>
-          Questions welcome 💬
+          <MessageSquare size={20} style={{ color: '#a78bfa' }} />
+          Questions welcome
         </motion.div>
       </div>
     </div>
