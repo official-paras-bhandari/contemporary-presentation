@@ -8,9 +8,9 @@ Machine Learning: Transforming Organisations and Society
 
 
 Group Members
-Student Name 1 — Student ID: XXXXXXX
-Student Name 2 — Student ID: XXXXXXX
-Student Name 3 — Student ID: XXXXXXX
+Parash Bhandari — Student ID: XXXXXXX
+Suparth Sitaula — Student ID: XXXXXXX
+Sayat Taqi — Student ID: XXXXXXX
 Subject Code: PROF608
 Due Date: Week 10, 2026
 ICT Trend: Machine Learning
@@ -107,9 +107,9 @@ Appendix A: Contribution Log
 The following table outlines the responsibilities of each group member in the preparation of this report and presentation. All members contributed equally to the overall project.
 
 Group Member	Report Responsibilities	Presentation Slides
-Student Name 1	Executive Summary; Introduction & Background; References	Slides 1–3 (Introduction, Trend Analysis)
-Student Name 2	Analysis of ICT Trend; Opportunities Analysis	Slides 4–6 (Opportunities, Challenges)
-Student Name 3	Challenges; Future Implications & Recommendations; Conclusion	Slides 7–10 (Future Implications, Conclusion, Q&A prep)
+Parash Bhandari	Executive Summary; Introduction & Background; References	Slides 1–3 (Introduction, Trend Analysis)
+Suparth Sitaula	Analysis of ICT Trend; Opportunities Analysis	Slides 4–6 (Opportunities, Challenges)
+Sayat Taqi	Challenges; Future Implications & Recommendations; Conclusion	Slides 7–10 (Future Implications, Conclusion, Q&A prep)
  
 Appendix B: AI Use Statement
 In accordance with PROF608 assessment requirements, this group discloses that AI tools were used in the preparation of wthis report in the following limited capacity: Claude (Anthropic) was used to assist with structural scaffolding, initial drafting of section outlines, and identification of relevant literature areas for further independent research. All substantive analysis, critical argumentation, and academic writing in the final submitted document represents the original work of the group members. All sources cited have been independently verified by the group. The use of AI tools for research and brainstorming has been disclosed in accordance with the subject's Academic Integrity Policy.
