@@ -204,6 +204,17 @@ function SlideHero() {
             An in-depth analysis of ML's current maturity,<br />
             opportunities, challenges, and strategic implications.
           </motion.p>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} style={{ marginTop: '2.5rem' }}>
+            <div style={{ fontSize: '0.7rem', opacity: 0.5, textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '0.75rem', color: '#a78bfa', fontWeight: 700 }}>Presented by</div>
+            <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+              {['Parash Bhandari', 'Suparth Sitaula', 'Sayat Taqi'].map((name, i) => (
+                <div key={name} style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                  <span style={{ fontSize: '1.1rem', fontWeight: 600, color: '#fff' }}>{name}</span>
+                  {i < 2 && <div style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(255,255,255,0.2)' }} />}
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
         <div className="s1-right" style={{ background: 'rgba(167,139,250,0.04)' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', maxWidth: 360 }}>
@@ -724,6 +735,16 @@ function SlideOutro() {
           {['PROF608', 'Week 10', 'Machine Learning'].map((t, i) => (
             <div key={t} style={{ padding: '1rem', borderRadius: 16, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', fontSize: '0.85rem', fontWeight: 600, opacity: 0.7 }}>{t}</div>
           ))}
+        </motion.div>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} style={{ marginTop: '1rem' }}>
+          <div style={{ fontSize: '0.7rem', opacity: 0.4, textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '0.5rem' }}>Presented by</div>
+          <div style={{ display: 'flex', gap: '1rem', color: 'rgba(255,255,255,0.6)', fontSize: '0.9rem', fontWeight: 500 }}>
+            <span>Parash Bhandari</span>
+            <span>•</span>
+            <span>Suparth Sitaula</span>
+            <span>•</span>
+            <span>Sayat Taqi</span>
+          </div>
         </motion.div>
         <motion.div style={{ padding: '1.5rem 2.5rem', borderRadius: 24, background: 'rgba(167,139,250,0.1)', border: '1px solid rgba(167,139,250,0.25)', fontSize: '1.1rem', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '0.75rem', justifyContent: 'center' }}
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}>
